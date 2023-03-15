@@ -29,7 +29,9 @@ refresh = on_command(
 
 
 DRIVER = get_driver()
-NICKNAME: str = list(DRIVER.config.nickname)[0]
+NICKNAME: str = (
+    list(DRIVER.config.nickname)[0] if list(DRIVER.config.nickname) else "BOT"
+)
 gacha_info_path = Path.cwd() / "data" / "genshin_history"
 
 
@@ -54,9 +56,7 @@ async def _(
     else:
         t = datetime.fromisoformat(info[0]["end"]) - datetime.now()
         days = round(t.total_seconds() / (24 * 3600))
-        delta_time = (
-            f"当前正在up中,距离结束还有约{days}天"
-        )
+        delta_time = f"当前正在up中,距离结束还有约{days}天"
     msg.append(
         {
             "type": "node",
