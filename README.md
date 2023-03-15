@@ -4,6 +4,7 @@
   <p><img src="https://ghproxy.com/https://github.com/A-kirami/nonebot-plugin-template/blob/resources/NoneBotPlugin.svg" width="240" alt="NoneBotPluginText"></p>
 </div>
 
+<div align="center">
 
 # nonebot-plugin-gshisbanner
 
@@ -17,6 +18,8 @@ _✨ NoneBot 插件简单描述 ✨_
     <img src="https://img.shields.io/pypi/v/nonebot-plugin-gshisbanner.svg" alt="pypi">
 </a>
 <img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="python">
+
+</div>
 
 ## 📖 介绍
 
