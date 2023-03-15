@@ -52,8 +52,10 @@ async def _(
     if t.days > 0:
         delta_time = f"距离现在已有{t.days}天"
     else:
+        t = datetime.fromisoformat(info[0]["end"]) - datetime.now()
+        days = round(t.total_seconds() / (24 * 3600))
         delta_time = (
-            f"当前正在up中,距离结束还有{datetime.fromisoformat(info[0]['end']) - datetime.now()}天"
+            f"当前正在up中,距离结束还有约{days}天"
         )
     msg.append(
         {
