@@ -3,7 +3,7 @@ from typing import Optional, Tuple
 
 from .deal_json import load_json
 
-path = Path(__file__).parent / "data" / "alias.json"
+path = Path.cwd() / "data" / "genshin_history" / "alias.json"
 
 
 def get_name_by_alias(target: str, type: str) -> Optional[str]:
