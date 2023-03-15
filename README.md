@@ -4,7 +4,6 @@
   <p><img src="https://ghproxy.com/https://github.com/A-kirami/nonebot-plugin-template/blob/resources/NoneBotPlugin.svg" width="240" alt="NoneBotPluginText"></p>
 </div>
 
-<div align="center">
 
 # nonebot-plugin-gshisbanner
 
@@ -40,7 +39,6 @@ _✨ NoneBot 插件简单描述 ✨_
 
     plugins = ["nonebot_plugin_gshisbanner"]
 </details>
-</div>
 
 ## ⚙️ 配置
 
