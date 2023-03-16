@@ -8,8 +8,7 @@
 
 # nonebot-plugin-gshisbanner
 
-_✨ NoneBot 插件简单描述 ✨_
-本插件用于在机器人上查询原神历史卡池信息
+_✨ 本插件用于在机器人上查询原神历史卡池信息 ✨_
 
 <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/forchannot/nonebot-plugin-gshisbanner.svg" alt="license">
@@ -52,7 +51,7 @@ _✨ NoneBot 插件简单描述 ✨_
 | 指令 | 权限 | 需要@ | 范围 | 说明 |
 |:-----:|:----:|:----:|:----:|:----:|
 | 历史卡池 | ALL | 否 | ALL  | XX历史卡池 |
-| 刷新历史卡池 | 管理员以上 | 是 | ALL | 刷新历史卡池 |
+| 刷新历史卡池/别名 | 管理员以上 | 是 | ALL | 刷新历史卡池或别名 |
 ### 效果图
 ![image](https://cdn.staticaly.com/gh/forchannot/mypicgo@main/20230315/image.40vk11yurwc0.jpg)
 

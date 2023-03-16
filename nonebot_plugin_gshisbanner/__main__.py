@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Union
 
 import httpx
-from nonebot import on_regex, on_command, get_driver, logger
+from nonebot import on_regex, get_driver, logger
 from nonebot.adapters.onebot.v11 import (
     MessageEvent,
     GroupMessageEvent,
@@ -20,13 +20,12 @@ from .deal import deal_info
 from .deal_json import load_json_from_url, save_json
 
 old_gacha = on_regex(r"(?P<name>[\u4e00-\u9fa5]+)(?<!刷新)历史卡池")
-refresh = on_command(
-    "刷新历史卡池",
+refresh = on_regex(
+    r"刷新(?P<name>历史卡池|别名)",
     permission=SUPERUSER | GROUP_ADMIN | GROUP_OWNER,
     priority=13,
     block=False,
 )
-
 
 DRIVER = get_driver()
 NICKNAME: str = (
@@ -103,23 +102,31 @@ async def _(
 
 
 @refresh.handle()
-async def _(event: MessageEvent):
+async def _(
+    event: MessageEvent,
+    regex_dict: dict = RegexDict(),
+):
+    type_name = regex_dict["name"]
     types = ["character", "weapon"]
-    for i in types:
-        url = f"https://genshin-gacha-banners.52v6.com/data/{i}.json"
-        path = Path.cwd() / "data" / "genshin_history" / f"{i}.json"
-        result = await load_json_from_url(url, path, True)
-        if not result:
-            await refresh.finish("刷新失败,可能是网络问题或api失效")
+    if type_name == "历史卡池":
+        for i in types:
+            url = f"https://genshin-gacha-banners.52v6.com/data/{i}.json"
+            path = Path.cwd() / "data" / "genshin_history" / f"{i}.json"
+            result = await load_json_from_url(url, path)
+            if not result:
+                await refresh.finish("刷新失败,可能是网络问题或api失效")
+            save_json(result, path)
+    elif type_name == "别名":
+        await init_group_card(True)
     await refresh.finish("刷新成功")
 
 
 @DRIVER.on_startup
-async def init_group_card():
+async def init_group_card(force: bool = True):
     path = Path.cwd() / "data" / "genshin_history"
     if not path.exists():
         path.mkdir(parents=True)
-    if not (path / "alias.json").exists():
+    if force:
         url = "https://raw.gitmirror.com/forchannot/nonebot-plugin-gshisbanner/master/data/genshin_history/alias.json"
         async with httpx.AsyncClient() as client:
             resp = await client.get(url)
