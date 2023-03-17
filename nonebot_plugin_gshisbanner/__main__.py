@@ -2,7 +2,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Union
 
-import httpx
 from nonebot import on_regex, get_driver, logger
 from nonebot.adapters.onebot.v11 import (
     MessageEvent,
@@ -16,6 +15,7 @@ from nonebot.params import RegexDict
 from nonebot.permission import SUPERUSER
 
 from .alias import find_name
+from .api import get
 from .deal import deal_info
 from .deal_json import load_json_from_url, save_json
 
@@ -128,8 +128,7 @@ async def init_group_card(force: bool = True):
         path.mkdir(parents=True)
     if force:
         url = "https://raw.gitmirror.com/forchannot/nonebot-plugin-gshisbanner/master/data/genshin_history/alias.json"
-        async with httpx.AsyncClient() as client:
-            resp = await client.get(url)
-            data = resp.json()
-            save_json(data=data, path=path / "alias.json")
-            logger.info("alias文件保存成功")
+        resp = await get(url)
+        data = resp.json()
+        save_json(data=data, path=path / "alias.json")
+        logger.info("alias文件保存成功")

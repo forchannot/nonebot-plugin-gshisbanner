@@ -3,7 +3,8 @@ from pathlib import Path
 from typing import Union
 
 import json
-import httpx
+
+from .api import get
 
 
 def save_json(data: dict, path: Union[Path, str] = None, encoding: str = "utf-8"):
@@ -26,8 +27,7 @@ async def load_json_from_url(
 ) -> dict:
     if path and Path(path).exists() and not force:
         return load_json(path=path)
-    async with httpx.AsyncClient() as client:
-        resp = await client.get(url)
+    resp = await get(url)
     try:
         data = resp.json()
     except JSONDecodeError:

@@ -16,7 +16,7 @@ _✨ 本插件用于在机器人上查询原神历史卡池信息 ✨_
 <a href="https://pypi.python.org/pypi/nonebot-plugin-gshisbanner">
     <img src="https://img.shields.io/pypi/v/nonebot-plugin-gshisbanner.svg" alt="pypi">
 </a>
-<img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="python">
+<img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="python">
 
 </div>
 
