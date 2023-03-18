@@ -43,12 +43,9 @@ async def _(
     msg = []
     type_name = regex_dict["name"]
     real_name, is_type = find_name(type_name)
-    if real_name and is_type == "角色":
-        info = await deal_info(real_name, "cha")
-    elif real_name and is_type == "武器":
-        info = await deal_info(real_name, "wep")
-    else:
+    if real_name is None or is_type not in ["角色", "武器"]:
         await old_gacha.finish("该角色/武器不存在或是从未up过")
+    info = await deal_info(real_name, "cha" if is_type == "角色" else "wep")
     t = datetime.now() - datetime.fromisoformat(info[0]["end"])
     if t.days > 0:
         delta_time = f"距离现在已有{t.days}天"
