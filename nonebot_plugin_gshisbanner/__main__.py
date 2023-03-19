@@ -18,6 +18,7 @@ from .alias import find_name
 from .api import get
 from .deal import deal_info
 from .deal_json import load_json_from_url, save_json
+from .send import word_send
 
 old_gacha = on_regex(r"(?P<name>[\u4e00-\u9fa5]+)(?<!刷新)历史卡池")
 refresh = on_regex(
@@ -28,9 +29,6 @@ refresh = on_regex(
 )
 
 DRIVER = get_driver()
-NICKNAME: str = (
-    list(DRIVER.config.nickname)[0] if list(DRIVER.config.nickname) else "BOT"
-)
 gacha_info_path = Path.cwd() / "data" / "genshin_history"
 
 
@@ -40,7 +38,6 @@ async def _(
     event: Union[GroupMessageEvent, PrivateMessageEvent],
     regex_dict: dict = RegexDict(),
 ):
-    msg = []
     type_name = regex_dict["name"]
     real_name, is_type = find_name(type_name)
     if real_name is None or is_type not in ["角色", "武器"]:
@@ -49,51 +46,8 @@ async def _(
     end_time = datetime.strptime(info[0]["end"], "%Y-%m-%d %H:%M:%S").date()
     end_t = (datetime.now().date() - end_time).days
     delta_time = f"最近一次up距离现在已有{end_t}天" if end_t > 0 else f"当前正在up中,距离结束还有约{-end_t}天"
-    msg.append(
-        {
-            "type": "node",
-            "data": {
-                "name": NICKNAME,
-                "uin": event.self_id,
-                "content": f"{real_name}{delta_time}",
-            },
-        }
-    )
-    for i in info:
-        start = datetime.strptime(i["start"], "%Y-%m-%d %H:%M:%S").date()
-        end = datetime.strptime(i["end"], "%Y-%m-%d %H:%M:%S").date()
-        banner_five = (
-            " ".join(i["five_character"])
-            if i.get("five_character")
-            else " ".join(i["five_weapon"])
-        )
-        banner_four = (
-            " ".join(i["four_character"])
-            if i.get("four_character")
-            else " ".join(i["four_weapon"])
-        )
-        msg.append(
-            {
-                "type": "node",
-                "data": {
-                    "name": NICKNAME,
-                    "uin": event.self_id,
-                    "content": f"五星：{banner_five}\n四星：{banner_four}\nup时间：\n{start}~~{end}",
-                },
-            }
-        )
-    if isinstance(event, GroupMessageEvent):
-        await bot.call_api(
-            "send_group_forward_msg",
-            group_id=event.group_id,
-            messages=msg,
-        )
-    elif isinstance(event, PrivateMessageEvent):
-        await bot.call_api(
-            "send_private_forward_msg",
-            user_id=event.user_id,
-            messages=msg,
-        )
+    await word_send(bot, event, real_name, delta_time, info)
+    await old_gacha.finish()
 
 
 @refresh.handle()
