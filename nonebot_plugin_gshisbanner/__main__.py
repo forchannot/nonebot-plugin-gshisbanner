@@ -46,24 +46,22 @@ async def _(
     if real_name is None or is_type not in ["角色", "武器"]:
         await old_gacha.finish("该角色/武器不存在或是从未up过")
     info = await deal_info(real_name, "cha" if is_type == "角色" else "wep")
-    t = datetime.now() - datetime.fromisoformat(info[0]["end"])
-    if t.days > 0:
-        delta_time = f"距离现在已有{t.days}天"
-    else:
-        t = datetime.fromisoformat(info[0]["end"]) - datetime.now()
-        days = round(t.total_seconds() / (24 * 3600))
-        delta_time = f"当前正在up中,距离结束还有约{days}天"
+    end_time = datetime.strptime(info[0]["end"], "%Y-%m-%d %H:%M:%S").date()
+    end_t = (datetime.now().date() - end_time).days
+    delta_time = f"最近一次up距离现在已有{end_t}天" if end_t > 0 else f"当前正在up中,距离结束还有约{-end_t}天"
     msg.append(
         {
             "type": "node",
             "data": {
                 "name": NICKNAME,
                 "uin": event.self_id,
-                "content": f"{type_name}最近一次up时间为\n{info[0]['start']}\n{delta_time}",
+                "content": f"{real_name}{delta_time}",
             },
         }
     )
     for i in info:
+        start = datetime.strptime(i["start"], "%Y-%m-%d %H:%M:%S").date()
+        end = datetime.strptime(i["end"], "%Y-%m-%d %H:%M:%S").date()
         banner_five = (
             " ".join(i["five_character"])
             if i.get("five_character")
@@ -80,7 +78,7 @@ async def _(
                 "data": {
                     "name": NICKNAME,
                     "uin": event.self_id,
-                    "content": f"五星：{banner_five}\n四星：{banner_four}\nup时间：\n{i['start']}~{i['end']}",
+                    "content": f"五星：{banner_five}\n四星：{banner_four}\nup时间：\n{start}~~{end}",
                 },
             }
         )
