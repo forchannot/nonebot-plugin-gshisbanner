@@ -3,4 +3,4 @@ from pydantic import Extra, BaseModel
 
 
 class Config(BaseModel, extra=Extra.ignore):
-    forward_length: int = 10
+    gshisbanner_forward_length: int = 10

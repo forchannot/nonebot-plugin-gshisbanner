@@ -43,10 +43,10 @@ async def _(
     regex_dict: dict = RegexDict(),
 ):
     type_name = regex_dict["name"]
-    if config.forward_length <= 0:
+    if config.gshisbanner_forward_length <= 0:
         await old_gacha.finish("请不要将合并转发长度设为小于等于0的数字")
     # regex_dict["len"]：表示合并转发的长度,由用户输入获取，为获取到则为默认值
-    length = int(regex_dict["len"]) if regex_dict["len"] else config.forward_length
+    length = int(regex_dict["len"]) if regex_dict["len"] else config.gshisbanner_forward_length
     # 获取角色真实名字
     real_name, is_type = find_name(type_name)
     if real_name is None or is_type not in ["角色", "武器"]:
