@@ -71,7 +71,7 @@ async def _(
         for i in types:
             url = f"https://genshin-gacha-banners.52v6.com/data/{i}.json"
             path = Path.cwd() / "data" / "genshin_history" / f"{i}.json"
-            result = await load_json_from_url(url, path)
+            result = await load_json_from_url(url, path, True)
             if not result:
                 await refresh.finish("刷新失败,可能是网络问题或api失效")
             save_json(result, path)
