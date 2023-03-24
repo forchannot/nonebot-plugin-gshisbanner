@@ -36,7 +36,11 @@ async def deal_info(name: str, choose: str):
     for data in jsons:
         for item in data["items"]:
             if item["name"] == name:
-                temp = {"start": data["start"], "end": data["end"]}
+                temp = {
+                    "start": data["start"],
+                    "end": data["end"],
+                    "version": data["version"],
+                }
                 if choose == "cha":
                     temp["five_character"] = [
                         x["name"] for x in data["items"] if x.get("rankType") == 5

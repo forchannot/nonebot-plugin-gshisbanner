@@ -53,10 +53,7 @@ async def _(
         await old_gacha.finish("该角色/武器不存在或是从未up过")
     # 获取up信息
     info = await deal_info(real_name, "cha" if is_type == "角色" else "wep")
-    end_time = datetime.strptime(info[0]["end"], "%Y-%m-%d %H:%M:%S").date()
-    end_t = (datetime.now().date() - end_time).days
-    delta_time = f"最近一次up距离现在已有{end_t}天" if end_t > 0 else f"当前正在up中,距离结束还有约{-end_t}天"
-    await word_send(bot, event, real_name, delta_time, info, length)
+    await word_send(bot, event, real_name, info, length)
     await old_gacha.finish()
 
 
