@@ -8,7 +8,7 @@ path = Path.cwd() / "data" / "genshin_history"
 
 async def get_info_from_url(
     cha: bool, cache_dir: Path = path
-) -> Union[dict, list[dict]]:
+) -> Union[Dict, List[Dict]]:
     """
     :param cha: 类型
     :param cache_dir: 本地缓存
