@@ -111,6 +111,9 @@ async def init_group_card(force: bool = True):
     if force:
         url = "https://raw.gitmirror.com/forchannot/nonebot-plugin-gshisbanner/master/data/genshin_history/alias.json"
         resp = await get(url)
+        if resp.status_code != 200:
+            logger.error("alias.json文件下载失败")
+            return
         data = resp.json()
         save_json(data=data, path=path / "alias.json")
         logger.info("alias.json文件保存成功")
