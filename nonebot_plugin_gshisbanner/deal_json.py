@@ -14,7 +14,7 @@ def save_json(data: Union[dict, list[dict]], path: Union[Path, str] = None, enco
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding=encoding)
 
 
-def load_json(path: Union[Path, str], encoding: str = "utf-8"):
+def load_json(path: Union[Path, str], encoding: str = "utf-8") -> Union[dict, list[dict]]:
     if isinstance(path, str):
         path = Path(path)
     if not path.name.endswith(".json"):

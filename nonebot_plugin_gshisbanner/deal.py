@@ -1,12 +1,14 @@
 from pathlib import Path
-from typing import Union
+from typing import Union, List, Dict
 
 from .deal_json import load_json_from_url
 
 path = Path.cwd() / "data" / "genshin_history"
 
 
-async def get_info_from_url(cha: bool, cache_dir: Path = path) -> Union[dict, list[dict]]:
+async def get_info_from_url(
+    cha: bool, cache_dir: Path = path
+) -> Union[dict, list[dict]]:
     """
     :param cha: 类型
     :param cache_dir: 本地缓存
@@ -22,11 +24,13 @@ async def get_info_from_url(cha: bool, cache_dir: Path = path) -> Union[dict, li
     return await load_json_from_url(url, path=cache_path)
 
 
-async def deal_info_from_name(name: str, choose: str) -> list[dict]:
+async def deal_info_from_name(
+    name: str, choose: str
+) -> List[Dict[str, Union[str, List[str]]]]:
     """
     :param name: 名字
     :param choose: 类型
-    :return: list[dict]:获取到的历史卡池数据
+    :return: 获取到的历史卡池数据
     """
     result = []
     jsons = (
@@ -60,40 +64,40 @@ async def deal_info_from_name(name: str, choose: str) -> list[dict]:
     return result
 
 
-async def deal_info_from_version(version: str, is_all: bool) -> list[dict]:
+async def deal_info_from_version(
+    version: str, is_all: bool
+) -> List[Dict[str, Union[str, List[str]]]]:
     """
     :param version: 版本号
     :param is_all: 是否获取全部卡池
-    :return: list[dict]:获取到的历史卡池数据
+    :return: 获取到的历史卡池数据
     """
-    result = []
     json = await get_info_from_url(True) + await get_info_from_url(False)
+    type_list = ["five_character", "four_character", "five_weapon", "four_weapon"]
+    result = []
     for data in json:
         if data["version"][:3] == version if is_all else data["version"] == version:
-            temp = {
-                "start": data["start"],
-                "end": data["end"],
-                "five_character": [
-                    x["name"]
-                    for x in data["items"]
-                    if x.get("rankType") == 5 and x.get("itemType") == "Character"
-                ],
-                "four_character": [
-                    x["name"]
-                    for x in data["items"]
-                    if x.get("rankType") == 4 and x.get("itemType") == "Character"
-                ],
-                "five_weapon": [
-                    x["name"]
-                    for x in data["items"]
-                    if x.get("rankType") == 5 and x.get("itemType") == "Weapon"
-                ],
-                "four_weapon": [
-                    x["name"]
-                    for x in data["items"]
-                    if x.get("rankType") == 4 and x.get("itemType") == "Weapon"
-                ],
-                "version": data["version"],
-            }
-            result.append(temp)
-    return result or None
+            result.append(
+                {
+                    "start": data["start"],
+                    "end": data["end"],
+                    # 利用 zip 将 type_list 和得到的对应值的列表合并成一个元组，其中 type_list 作为键，得到的列表作为值,最后将元组转换成字典
+                    **dict(
+                        zip(
+                            type_list,
+                            (
+                                [
+                                    x["name"]
+                                    for x in data["items"]
+                                    if x.get("rankType") == (5 if "five" in item else 4)
+                                    and x.get("itemType")
+                                    == item.split("_")[1].capitalize()
+                                ]
+                                for item in type_list
+                            ),
+                        )
+                    ),
+                    "version": data["version"],
+                }
+            )
+    return [{k: v for k, v in data.items() if v} for data in result]
