@@ -72,7 +72,7 @@ async def deal_info_from_version(
     :param is_all: 是否获取全部卡池
     :return: 获取到的历史卡池数据
     """
-    json = await get_info_from_url(True) + await get_info_from_url(False)
+    json = await get_info_from_url(True) + await get_info_from_url(False)  # type: ignore
     type_list = ["five_character", "four_character", "five_weapon", "four_weapon"]
     result = []
     for data in json:

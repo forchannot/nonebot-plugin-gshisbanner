@@ -7,14 +7,18 @@ import json
 from .api import get
 
 
-def save_json(data: Union[Dict, List[Dict]], path: Union[Path, str] = None, encoding: str = "utf-8"):
+def save_json(
+    data: Union[Dict, List[Dict]], path: Union[Path, str], encoding: str = "utf-8"
+):
     if isinstance(path, str):
         path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding=encoding)
 
 
-def load_json(path: Union[Path, str], encoding: str = "utf-8") -> Union[Dict, List[Dict]]:
+def load_json(
+    path: Union[Path, str], encoding: str = "utf-8"
+) -> Union[Dict, List[Dict]]:
     if isinstance(path, str):
         path = Path(path)
     if not path.name.endswith(".json"):
@@ -23,7 +27,7 @@ def load_json(path: Union[Path, str], encoding: str = "utf-8") -> Union[Dict, Li
 
 
 async def load_json_from_url(
-    url: str, path: Union[Path, str] = None, force: bool = False
+    url: str, path: Union[Path, str], force: bool = False
 ) -> Union[Dict, List[Dict]]:
     if path and Path(path).exists() and not force:
         return load_json(path=path)
