@@ -3,13 +3,10 @@ from datetime import datetime
 from nonebot.adapters.onebot.v11 import GroupMessageEvent, PrivateMessageEvent
 from nonebot import get_driver
 
-from .config import Config
-
 DRIVER = get_driver()
 NICKNAME: str = (
     list(DRIVER.config.nickname)[0] if list(DRIVER.config.nickname) else "BOT"
 )
-config = Config.parse_obj(get_driver().config.dict())
 
 
 # 角色历史卡池文字合并转发处理

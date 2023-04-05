@@ -33,7 +33,7 @@ async def load_json_from_url(
         return load_json(path=path)
     resp = await get(url)
     try:
-        data = resp.json()
+        data: Union[Dict, List[Dict]] = resp.json()
     except JSONDecodeError:
         return []
     if path and not Path(path).exists():
