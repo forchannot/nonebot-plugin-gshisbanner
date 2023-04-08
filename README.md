@@ -44,10 +44,17 @@ _✨ 本插件用于在机器人上查询原神历史卡池信息 ✨_
 
 ## ⚙️ 配置
 ```
-gshisbanner_forward_length=10
+gshisbanner_forward_length: int
 # 单次合并转发消息长度（int）,默认为10
 # 越大单次转发内容更多，合并转发的次数更少，越小单单次转发内容更少，但合并转发的次数更多
 # 不要设置为>99或者<0的数字或者任意字符串
+
+gshisbanner_json_url: str
+# 历史卡池json列表下载位置
+# 可选值
+·· 1."banners.52v6.com" #默认
+·· 2."genshin-gacha-banners.vercel.app" #vercel代理，国内可能无法直连
+·· 3."genshin-gacha-banners.52v6.com" #cloudfare代理，可能会被墙
 ```
 
 ## 🎉 使用
@@ -94,3 +101,8 @@ gshisbanner_forward_length=10
 <summary>刷新卡池/别名效果图</summary>
 <img src="https://cdn.staticaly.com/gh/forchannot/mypicgo@main/20230324/image.5zl59kpx8b00.jpg" alt="help">
 </details>
+
+
+### 鸣谢
+
+[genshin-gacha-banners](https://github.com/KeyPJ/genshin-gacha-banners) #历史up卡池来源

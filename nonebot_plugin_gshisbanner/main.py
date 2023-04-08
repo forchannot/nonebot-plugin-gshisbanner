@@ -12,7 +12,6 @@ from nonebot.adapters.onebot.v11 import (
 )
 from nonebot.params import RegexDict
 from nonebot.permission import SUPERUSER
-
 from .alias import find_name
 from .api import get
 from .config import config
@@ -97,8 +96,8 @@ async def _(
     types = ["character", "weapon"]
     if type_name == "历史卡池":
         for i in types:
-            url = f"https://genshin-gacha-banners.52v6.com/data/{i}.json"
-            path = Path.cwd() / "data" / "genshin_history" / f"{i}.json"
+            url = f"https://{config.gshisbanner_json_url}/data/{i}.json"
+            path = gacha_info_path / f"{i}.json"
             result = await load_json_from_url(url, path, True)
             if not result:
                 await refresh.finish(f"刷新{type_name}失败,可能是网络问题或api失效")
@@ -112,9 +111,8 @@ async def _(
 
 @DRIVER.on_startup
 async def init_group_card():
-    path = Path.cwd() / "data" / "genshin_history"
-    if not path.exists():
-        path.mkdir(parents=True)
+    if not gacha_info_path.exists():
+        gacha_info_path.mkdir(parents=True)
     url = (
         "https://ghproxy.com/https://raw.githubusercontent.com/forchannot/nonebot-plugin-gshisbanner/main/data"
         "/genshin_history/alias.json"
@@ -128,5 +126,5 @@ async def init_group_card():
         logger.warning("alias.json文件下载失败")
         return False
     data = resp.json()
-    save_json(data=data, path=path / "alias.json")
+    save_json(data=data, path=gacha_info_path / "alias.json")
     logger.info("alias.json文件保存成功")
