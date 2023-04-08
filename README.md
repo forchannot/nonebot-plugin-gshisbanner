@@ -55,6 +55,7 @@ gshisbanner_json_url: str
 ·· 1."banners.52v6.com" #默认
 ·· 2."genshin-gacha-banners.vercel.app" #vercel代理，国内可能无法直连
 ·· 3."genshin-gacha-banners.52v6.com" #cloudfare代理，可能会被墙
+·· 4."ghproxy.com/https://raw.githubusercontent.com/KeyPJ/genshin-gacha-banners/master/public" #ghproxy代理的raw文件，大多数情况可用
 ```
 
 ## 🎉 使用
