@@ -84,7 +84,7 @@ async def _(bot: Bot, event: MessageEvent, regex_dict: dict = RegexDict()):
     )
     if info:
         await word_send_from_version(bot, event, real_version, info)
-    await version_gacha.finish("该版本不存在")
+    await version_gacha.finish()
 
 
 @refresh.handle()
