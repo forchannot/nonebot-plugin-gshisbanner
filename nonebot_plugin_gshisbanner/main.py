@@ -82,9 +82,9 @@ async def _(bot: Bot, event: MessageEvent, regex_dict: dict = RegexDict()):
     info = await deal_info_from_version(
         real_version, False if regex_dict["upordown"] else True
     )
-    if info is not None:
+    if info:
         await word_send_from_version(bot, event, real_version, info)
-    await version_gacha.finish()
+    await version_gacha.finish("该版本不存在")
 
 
 @refresh.handle()

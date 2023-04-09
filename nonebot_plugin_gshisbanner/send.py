@@ -32,16 +32,8 @@ async def word_send_from_name(bot, event, real_name, info, length):
             start = datetime.strptime(j["start"], "%Y-%m-%d %H:%M:%S").date()
             end = datetime.strptime(j["end"], "%Y-%m-%d %H:%M:%S").date()
             version = "{}.{}  卡池{}".format(*j["version"].split("."))
-            banner_five = (
-                " ".join(j["five_character"])
-                if j.get("five_character")
-                else " ".join(j["five_weapon"])
-            )
-            banner_four = (
-                " ".join(j["four_character"])
-                if j.get("four_character")
-                else " ".join(j["four_weapon"])
-            )
+            banner_five = " ".join(j.get("five_character", j.get("five_weapon", [])))
+            banner_four = " ".join(j.get("four_character", j.get("four_weapon", [])))
             msg.append(
                 {
                     "type": "node",
@@ -72,16 +64,8 @@ async def word_send_from_version(bot, event, version, info):
         start = datetime.strptime(j["start"], "%Y-%m-%d %H:%M:%S").date()
         end = datetime.strptime(j["end"], "%Y-%m-%d %H:%M:%S").date()
         version = "{}.{}  卡池{}".format(*j["version"].split("."))
-        banner_five = (
-            " ".join(j["five_character"])
-            if j["five_character"]
-            else " ".join(j["five_weapon"])
-        )
-        banner_four = (
-            " ".join(j["four_character"])
-            if j["four_character"]
-            else " ".join(j["four_weapon"])
-        )
+        banner_five = " ".join(j.get("five_character", j.get("five_weapon", [])))
+        banner_four = " ".join(j.get("four_character", j.get("four_weapon", [])))
         msg1.append(
             {
                 "type": "node",
