@@ -9,7 +9,7 @@ NICKNAME: str = (
 )
 
 
-# 角色历史卡池文字合并转发处理
+# 角色历史卡池文字合并转发预处理
 async def word_send_from_name(bot, event, real_name, info, length):
     end_time = datetime.strptime(info[0]["end"], "%Y-%m-%d %H:%M:%S").date()
     end_t = (datetime.now().date() - end_time).days
@@ -23,7 +23,7 @@ async def word_send_from_name(bot, event, real_name, info, length):
         await send_banner_info(bot, event, msg, info[i: i + length])
 
 
-# 版本卡池文字合并转发处理
+# 版本卡池文字合并转发预处理
 async def word_send_from_version(bot, event, version, info):
     msg_content = f"{version}版本卡池"
     await send_banner_info(bot, event, msg_content, info)
@@ -45,6 +45,7 @@ async def send_forward_msg(bot, event, info):
         )
 
 
+# 合并转发最终处理
 async def send_banner_info(bot, event, msg_content, banner_info):
     msg = [
         {

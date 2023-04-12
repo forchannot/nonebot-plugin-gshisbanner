@@ -63,7 +63,8 @@ async def _(
         await old_gacha.finish("该角色/武器不存在或是从未up过")
     # 获取up信息
     info = await deal_info_from_name(real_name, "cha" if real_type == "角色" else "wep")
-    await word_send_from_name(bot, event, real_name, info, length)
+    if length > 0:
+        await word_send_from_name(bot, event, real_name, info, length)
     await old_gacha.finish()
 
 
