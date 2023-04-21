@@ -53,7 +53,7 @@ gshisbanner_json_url: str
 # 历史卡池json列表下载位置
 # 可选值
 ·· 1."banners.52v6.com/data" 
-     #默认
+     #默认，推荐
 ·· 2."genshin-gacha-banners.vercel.app/data" 
      #vercel代理，国内可能无法直连
 ·· 3."genshin-gacha-banners.52v6.com/data" 
@@ -62,7 +62,7 @@ gshisbanner_json_url: str
      ##ghproxy代理的raw文件，大多数情况可用，不过不稳定
      ##前面的"ghproxy.com/"可以不写(如果你是国外机),或者换成你自建的github加速服务均可(需要支持https)
 ·· 5."fastly.jsdelivr.net/gh/KeyPJ/FetchData@main/data/gacha"
-     ##jsdelivr代理的文件，大多数情况可用
+     ##jsdelivr代理的文件，大多数情况可用，推荐
 ```
 
 ## 🎉 使用

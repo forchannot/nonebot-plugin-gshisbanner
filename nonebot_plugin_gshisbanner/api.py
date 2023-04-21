@@ -10,7 +10,7 @@ async def get(
     timeout: Optional[int] = 30,
     **kwargs
 ) -> httpx.Response:
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(follow_redirects=True) as client:
         return await client.get(
             url, headers=headers, params=params, timeout=timeout, **kwargs
         )

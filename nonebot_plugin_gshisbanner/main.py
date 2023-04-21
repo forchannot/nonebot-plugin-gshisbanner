@@ -114,12 +114,7 @@ async def _(
 async def init_group_card():
     if not gacha_info_path.exists():
         gacha_info_path.mkdir(parents=True)
-    url = (
-        "https://ghproxy.com/https://raw.githubusercontent.com/forchannot/nonebot-plugin-gshisbanner/main/data"
-        "/genshin_history/alias.json"
-    )
-    # url = "https://fastly.jsdelivr.net/gh/forchannot/nonebot-plugin-gshisbanner@main/data/genshin_history/alias.json"
-    # 备用
+    url = "https://fastly.jsdelivr.net/gh/forchannot/nonebot-plugin-gshisbanner@main/data/genshin_history/alias.json"
     try:
         resp = await get(url)
     except Exception as e:
