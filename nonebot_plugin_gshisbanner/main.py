@@ -97,7 +97,7 @@ async def _(
     types = ["character", "weapon"]
     if type_name == "历史卡池":
         for i in types:
-            url = f"https://{config.gshisbanner_json_url}/data/{i}.json"
+            url = f"https://{config.gshisbanner_json_url}/{i}.json"
             path = gacha_info_path / f"{i}.json"
             result = await load_json_from_url(url, path, True)
             if not result:
@@ -118,6 +118,8 @@ async def init_group_card():
         "https://ghproxy.com/https://raw.githubusercontent.com/forchannot/nonebot-plugin-gshisbanner/main/data"
         "/genshin_history/alias.json"
     )
+    # url = "https://fastly.jsdelivr.net/gh/forchannot/nonebot-plugin-gshisbanner@main/data/genshin_history/alias.json"
+    # 备用
     try:
         resp = await get(url)
     except Exception as e:
