@@ -115,14 +115,17 @@ async def init_group_card():
     if not gacha_info_path.exists():
         gacha_info_path.mkdir(parents=True)
     url = "https://fastly.jsdelivr.net/gh/forchannot/nonebot-plugin-gshisbanner@main/data/genshin_history/alias.json"
+    if (gacha_info_path / "alias.json").exists():
+        logger.info("alias.json文件已存在，跳过下载，如需更新请使用刷新别名功能")
+        return
     try:
         resp = await get(url)
     except Exception as e:
         logger.warning(f"alias.json文件下载失败,错误信息:{e}")
-        return False
+        return
     if resp.status_code != 200:
         logger.warning("alias.json文件下载失败")
-        return False
+        return
     data = resp.json()
     save_json(data=data, path=gacha_info_path / "alias.json")
     logger.info("alias.json文件保存成功")
