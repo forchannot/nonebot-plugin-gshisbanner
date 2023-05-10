@@ -30,11 +30,7 @@ async def deal_info_from_name(
     :return: 获取到的历史卡池数据
     """
     result = []
-    jsons = (
-        await get_info_from_url(True)
-        if choose == "cha"
-        else await get_info_from_url(False)
-    )
+    jsons = await get_info_from_url(choose == "cha")
     for data in jsons:
         for item in data["items"]:
             if item["name"] == name:
@@ -69,32 +65,31 @@ async def deal_info_from_version(
     :param is_all: 是否获取全部卡池
     :return: 获取到的历史卡池数据
     """
+    # 获取所有卡池信息
     json = await get_info_from_url(True) + await get_info_from_url(False)  # type: ignore
+    # 卡池类型列表
     type_list = ["five_character", "four_character", "five_weapon", "four_weapon"]
     result = []
     for data in json:
+        # 判断是否为指定版本
         if data["version"][:3] == version if is_all else data["version"] == version:
-            result.append(
-                {
-                    "start": data["start"],
-                    "end": data["end"],
-                    # 利用 zip 将 type_list 和得到的对应值的列表合并成一个元组，其中 type_list 作为键，得到的列表作为值,最后将元组转换成字典
-                    **dict(
-                        zip(
-                            type_list,
-                            (
-                                [
-                                    x["name"]
-                                    for x in data["items"]
-                                    if x.get("rankType") == (5 if "five" in item else 4)
-                                    and x.get("itemType")
-                                    == item.split("_")[1].capitalize()
-                                ]
-                                for item in type_list
-                            ),
-                        )
-                    ),
-                    "version": data["version"],
-                }
-            )
+            # 构造卡池信息字典
+            temp = {
+                "start": data["start"],
+                "end": data["end"],
+                "version": data["version"],
+            }
+            # 遍历卡池类型列表
+            for item in type_list:
+                # 获取对应类型的卡池信息
+                temp[item] = [
+                    x["name"]
+                    for x in data["items"]
+                    if x.get("rankType") == (5 if "five" in item else 4)
+                    and x.get("itemType") == item.split("_")[1].capitalize()
+                ]
+            result.append(temp)
+    # 去除空值
     return [{k: v for k, v in data.items() if v} for data in result]
+
+

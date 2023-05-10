@@ -30,7 +30,7 @@ version_gacha = on_regex(
     block=False,
 )
 refresh = on_regex(
-    r"(?<!.)刷新(?P<name>历史卡池|别名)(?!.)",
+    r"(?<!.)(刷新|更新)(?P<name>历史卡池|别名)(?!.)",
     permission=SUPERUSER | GROUP_ADMIN | GROUP_OWNER,
     priority=13,
     block=False,

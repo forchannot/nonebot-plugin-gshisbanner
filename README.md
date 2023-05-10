@@ -17,12 +17,15 @@ _✨ 本插件用于在机器人上查询原神历史卡池信息 ✨_
     <img src="https://img.shields.io/pypi/v/nonebot-plugin-gshisbanner.svg" alt="pypi">
 </a>
 <img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="python">
-
+<br />
+<a href="https://onebot.dev/">
+    <img src="https://img.shields.io/badge/OneBot-v11-black?style=social&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAIVBMVEUAAAAAAAADAwMHBwceHh4UFBQNDQ0ZGRkoKCgvLy8iIiLWSdWYAAAAAXRSTlMAQObYZgAAAQVJREFUSMftlM0RgjAQhV+0ATYK6i1Xb+iMd0qgBEqgBEuwBOxU2QDKsjvojQPvkJ/ZL5sXkgWrFirK4MibYUdE3OR2nEpuKz1/q8CdNxNQgthZCXYVLjyoDQftaKuniHHWRnPh2GCUetR2/9HsMAXyUT4/3UHwtQT2AggSCGKeSAsFnxBIOuAggdh3AKTL7pDuCyABcMb0aQP7aM4AnAbc/wHwA5D2wDHTTe56gIIOUA/4YYV2e1sg713PXdZJAuncdZMAGkAukU9OAn40O849+0ornPwT93rphWF0mgAbauUrEOthlX8Zu7P5A6kZyKCJy75hhw1Mgr9RAUvX7A3csGqZegEdniCx30c3agAAAABJRU5ErkJggg==" alt="onebot">
+</a>
 </div>
 
 ## 📖 介绍
 
-本插件用于在机器人上查询原神历史卡池信息
+本插件用于在机器人上查询原神历史卡池信息（当前仅适用于qq）
 
 ## 💿 安装
 
@@ -67,11 +70,11 @@ gshisbanner_json_url: str
 
 ## 🎉 使用
 ### 指令表
-|        指令         |    权限    | 需要@ | 范围 |                             说明                             |
-| :-----------------: | :--------: | :---: | :--: | :----------------------------------------------------------: |
-| [name]历史卡池(num) |    ALL     |  否   | ALL  | name必填，为角色名字或别名；num选填，为单次合并转发次数，若无则为gshisbanner_forward_length的值 |
-| [version]卡池[num]  |    ALL     |  否   | ALL  | version为版本号，如1.3，2.6等，num为1-3，对应上半（中）下半，可不填，如不填则发送该版本全部卡池 |
-|  刷新历史卡池/别名  | 管理员以上 |  否   | ALL  |                      刷新历史卡池或别名                      |
+|        指令        |  权限   | 需要@ | 范围  |                                说明                                |
+|:----------------:|:-----:|:---:|:---:|:----------------------------------------------------------------:|
+| [name]历史卡池(num)  |  ALL  |  否  | ALL | name必填，为角色名字或别名；num选填，为单次合并转发次数，若无则为gshisbanner_forward_length的值 |
+| [version]卡池[num] |  ALL  |  否  | ALL |    version为版本号，如1.3，2.6等，num为1-3，对应上半（中）下半，可不填，如不填则发送该版本全部卡池     |
+|  刷新(更新)历史卡池/别名   | 管理员以上 |  否  | ALL |                            刷新历史卡池或别名                             |
 ### 效果图
 <details>
 <summary>历史卡池效果图</summary>
