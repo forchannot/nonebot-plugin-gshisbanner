@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from nonebot.adapters.onebot.v11 import GroupMessageEvent, PrivateMessageEvent
 from nonebot import get_driver
+from nonebot.adapters.onebot.v11 import GroupMessageEvent, PrivateMessageEvent
 
 DRIVER = get_driver()
 NICKNAME: str = (
@@ -13,13 +13,12 @@ NICKNAME: str = (
 async def word_send_from_name(bot, event, real_name, info, length):
     end_time = datetime.strptime(info[0]["end"], "%Y-%m-%d %H:%M:%S").date()
     end_t = (datetime.now().date() - end_time).days
-    delta_time = f"最近一次up距离现在已有{end_t}天" if end_t > 0 else f"当前正在up中,距离结束还有约{-end_t}天"
+    delta_time = (
+        f"最近一次up距离现在已有{end_t}天" if end_t > 0 else f"当前正在up中,距离结束还有约{-end_t}天"
+    )
     msg_content = f"{real_name}{delta_time}"
     for i in range(0, len(info), length):
-        if i == 0:
-            msg = msg_content
-        else:
-            msg = []
+        msg = msg_content if i == 0 else []
         await send_banner_info(bot, event, msg, info[i: i + length])
 
 
@@ -61,15 +60,20 @@ async def send_banner_info(bot, event, msg_content, banner_info):
         start = datetime.strptime(info["start"], "%Y-%m-%d %H:%M:%S").date()
         end = datetime.strptime(info["end"], "%Y-%m-%d %H:%M:%S").date()
         version = "{}.{}  卡池{}".format(*info["version"].split("."))
-        banner_five = " ".join(info.get("five_character", info.get("five_weapon", [])))
-        banner_four = " ".join(info.get("four_character", info.get("four_weapon", [])))
+        banner_five = " ".join(
+            info.get("five_character", info.get("five_weapon", []))
+        )
+        banner_four = " ".join(
+            info.get("four_character", info.get("four_weapon", []))
+        )
         msg.append(
             {
                 "type": "node",
                 "data": {
                     "name": NICKNAME,
                     "uin": event.self_id,
-                    "content": f"版本：{version}\n五星：{banner_five}\n四星：{banner_four}\nup时间：\n{start}~~{end}",
+                    "content": f"版本：{version}\n五星：{banner_five}"
+                    f"\n四星：{banner_four}\nup时间：\n{start}~~{end}",
                 },
             }
         )

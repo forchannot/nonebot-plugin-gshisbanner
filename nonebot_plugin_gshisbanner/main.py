@@ -80,9 +80,7 @@ async def _(bot: Bot, event: MessageEvent, regex_dict: dict = RegexDict()):
         else regex_dict["version"]
     )
     # 根据版本获取up信息
-    info = await deal_info_from_version(
-        real_version, False if regex_dict["upordown"] else True
-    )
+    info = await deal_info_from_version(real_version, not regex_dict["upordown"])
     if info:
         await word_send_from_version(bot, event, real_version, info)
     await version_gacha.finish()
