@@ -46,7 +46,7 @@ forward_length = config.gshisbanner_forward_length  # 合并转发长度
 async def _(
     bot: Bot,
     event: Union[GroupMessageEvent, PrivateMessageEvent],
-    regex_dict: dict = RegexDict(),
+    regex_dict: dict = RegexDict(),  # noqa: B008
 ):
     type_name = regex_dict["name"]
     if not isinstance(forward_length, int) or forward_length <= 0:
@@ -69,7 +69,9 @@ async def _(
 
 
 @version_gacha.handle()
-async def _(bot: Bot, event: MessageEvent, regex_dict: dict = RegexDict()):
+async def _(
+    bot: Bot, event: MessageEvent, regex_dict: dict = RegexDict()
+):  # noqa: B008
     # 判断是否为三卡池的版本
     if regex_dict["version"] not in special_version and regex_dict["upordown"] == "3":
         await version_gacha.finish()
@@ -89,7 +91,7 @@ async def _(bot: Bot, event: MessageEvent, regex_dict: dict = RegexDict()):
 @refresh.handle()
 async def _(
     event: MessageEvent,
-    regex_dict: dict = RegexDict(),
+    regex_dict: dict = RegexDict(),  # noqa: B008
 ):
     type_name = regex_dict["name"]
     types = ["character", "weapon"]

@@ -13,13 +13,11 @@ NICKNAME: str = (
 async def word_send_from_name(bot, event, real_name, info, length):
     end_time = datetime.strptime(info[0]["end"], "%Y-%m-%d %H:%M:%S").date()
     end_t = (datetime.now().date() - end_time).days
-    delta_time = (
-        f"最近一次up距离现在已有{end_t}天" if end_t > 0 else f"当前正在up中,距离结束还有约{-end_t}天"
-    )
+    delta_time = f"最近一次up距离现在已有{end_t}天" if end_t > 0 else f"当前正在up中,距离结束还有约{-end_t}天"
     msg_content = f"{real_name}{delta_time}"
     for i in range(0, len(info), length):
         msg = msg_content if i == 0 else []
-        await send_banner_info(bot, event, msg, info[i: i + length])
+        await send_banner_info(bot, event, msg, info[i : i + length])
 
 
 # 版本卡池文字合并转发预处理
@@ -60,12 +58,8 @@ async def send_banner_info(bot, event, msg_content, banner_info):
         start = datetime.strptime(info["start"], "%Y-%m-%d %H:%M:%S").date()
         end = datetime.strptime(info["end"], "%Y-%m-%d %H:%M:%S").date()
         version = "{}.{}  卡池{}".format(*info["version"].split("."))
-        banner_five = " ".join(
-            info.get("five_character", info.get("five_weapon", []))
-        )
-        banner_four = " ".join(
-            info.get("four_character", info.get("four_weapon", []))
-        )
+        banner_five = " ".join(info.get("five_character", info.get("five_weapon", [])))
+        banner_four = " ".join(info.get("four_character", info.get("four_weapon", [])))
         msg.append(
             {
                 "type": "node",
