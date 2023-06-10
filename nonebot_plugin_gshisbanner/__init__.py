@@ -15,5 +15,5 @@ __plugin_meta__ = PluginMetadata(
     extra={
         "author": "forchannot",
         "version": __version__,
-    }
+    },
 )
