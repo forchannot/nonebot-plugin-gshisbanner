@@ -1,8 +1,8 @@
 from pathlib import Path
-from typing import Union, List, Dict
+from typing import Dict, List, Union
 
-from .deal_json import load_json_from_url
 from .config import config
+from .deal_json import load_json_from_url
 
 path = Path.cwd() / "data" / "genshin_history"
 

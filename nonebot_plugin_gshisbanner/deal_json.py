@@ -1,8 +1,7 @@
+import json
 from json import JSONDecodeError
 from pathlib import Path
-from typing import Union, Dict, List
-
-import json
+from typing import Dict, List, Union
 
 from .api import get
 
