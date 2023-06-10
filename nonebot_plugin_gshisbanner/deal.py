@@ -68,7 +68,7 @@ async def deal_info_from_version(
     :return: 获取到的历史卡池数据
     """
     # 获取所有卡池信息
-    json = await get_info_from_url(True) + await get_info_from_url(False)  # type: ignore
+    json = await get_info_from_url(True) + await get_info_from_url(False)
     # 卡池类型列表
     type_list = ["five_character", "four_character", "five_weapon", "four_weapon"]
     result = []

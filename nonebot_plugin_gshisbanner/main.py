@@ -70,7 +70,7 @@ async def _(
 
 @version_gacha.handle()
 async def _(
-    bot: Bot, event: MessageEvent, regex_dict: dict = RegexDict()
+    bot: Bot, event: MessageEvent, regex_dict: dict = RegexDict()  # noqa: B008
 ):  # noqa: B008
     # 判断是否为三卡池的版本
     if regex_dict["version"] not in special_version and regex_dict["upordown"] == "3":
