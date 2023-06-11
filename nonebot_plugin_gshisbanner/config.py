@@ -8,4 +8,4 @@ class Config(BaseModel, extra=Extra.ignore):
     gshisbanner_json_url: str = "banners.52v6.com/data"
 
 
-config = Config.parse_obj(get_driver().config.dict())
+plugin_config = Config.parse_obj(get_driver().config.dict())

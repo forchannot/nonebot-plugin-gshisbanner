@@ -1,7 +1,7 @@
 from nonebot.plugin import PluginMetadata
 
-from .config import config
-from .main import *  # noqa
+from .config import plugin_config
+from .main import *  # noqa: F403
 
 __version__ = "0.5.2"
 __plugin_meta__ = PluginMetadata(
@@ -10,7 +10,7 @@ __plugin_meta__ = PluginMetadata(
     usage="XX历史卡池,XX版本卡池，详细查看本仓库readme",
     type="application",
     homepage="https://github.com/forchannot/nonebot-plugin-gshisbanner",
-    config=config,
+    config=plugin_config,
     supported_adapters={"~onebot.v11"},
     extra={
         "author": "forchannot",

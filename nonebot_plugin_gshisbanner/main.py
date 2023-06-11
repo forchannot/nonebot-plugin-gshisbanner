@@ -1,3 +1,4 @@
+import contextlib
 from pathlib import Path
 from typing import Union
 
@@ -15,7 +16,7 @@ from nonebot.permission import SUPERUSER
 
 from .alias import find_name
 from .api import get
-from .config import config
+from .config import plugin_config
 from .deal import deal_info_from_name, deal_info_from_version
 from .deal_json import load_json_from_url, save_json
 from .send import word_send_from_name, word_send_from_version
@@ -40,7 +41,7 @@ refresh = on_regex(
 DRIVER = get_driver()
 gacha_info_path = Path.cwd() / "data" / "genshin_history"
 special_version = ["1.3"]  # 特殊三卡池版本
-forward_length = config.gshisbanner_forward_length  # 合并转发长度
+forward_length = plugin_config.gshisbanner_forward_length  # 合并转发长度
 
 
 @old_gacha.handle()
@@ -56,7 +57,7 @@ async def _(
     length = (
         int(regex_dict["len"])
         if regex_dict["len"]
-        else config.gshisbanner_forward_length
+        else plugin_config.gshisbanner_forward_length
     )
     # 获取角色真实名字
     real_name, real_type = find_name(type_name)
@@ -98,7 +99,7 @@ async def _(
     types = ["character", "weapon"]
     if type_name == "历史卡池":
         for i in types:
-            url = f"https://{config.gshisbanner_json_url}/{i}.json"
+            url = f"https://{plugin_config.gshisbanner_json_url}/{i}.json"
             path = gacha_info_path / f"{i}.json"
             result = await load_json_from_url(url, path, True)
             if not result:
@@ -106,27 +107,34 @@ async def _(
             save_json(result, path)
             logger.info(f"{i}.json文件保存成功")
     elif type_name == "别名":
-        if (await init_group_card()) is False:
+        if (await init_group_card(True)) is False:
             await refresh.finish(f"刷新{type_name}失败,可能是网络问题或api失效")
     await refresh.finish(f"刷新{type_name}成功")
 
 
 @DRIVER.on_startup
-async def init_group_card():
+async def init_group_card(force_refresh: bool = False) -> bool:
     if not gacha_info_path.exists():
         gacha_info_path.mkdir(parents=True)
-    url = "https://fastly.jsdelivr.net/gh/forchannot/nonebot-plugin-gshisbanner@main/data/genshin_history/alias.json"
-    if (gacha_info_path / "alias.json").exists():
+    urls = [
+        "https://jsd.cdn.zzko.cn/gh/forchannot/nonebot-plugin-gshisbanner@main/data/genshin_history/alias.json",
+        "https://raw.fastgit.org/forchannot/nonebot-plugin-gshisbanner/main/data/genshin_history/alias.json",
+        "https://cdn.jsdelivr.net/gh/forchannot/nonebot-plugin-gshisbanner@main/data/genshin_history/alias.json",
+        "https://cdn.staticaly.com/gh/forchannot/nonebot-plugin-gshisbanner@main/data/genshin_history/alias.json",
+        "https://fastly.jsdelivr.net/gh/forchannot/nonebot-plugin-gshisbanner@main/data/genshin_history/alias.json",
+    ]
+    if (gacha_info_path / "alias.json").exists() and not force_refresh:
         logger.info("alias.json文件已存在，跳过下载，如需更新请使用刷新别名功能")
-        return
-    try:
-        resp = await get(url)
-    except Exception as e:
-        logger.warning(f"alias.json文件下载失败,错误信息:{e}")
-        return
-    if resp.status_code != 200:
+        return False
+    for url in urls:
+        with contextlib.suppress(Exception):
+            resp = await get(url, follow_redirects=True)
+            if resp.status_code == 200:
+                break
+    else:
         logger.warning("alias.json文件下载失败")
-        return
+        return False
     data = resp.json()
     save_json(data=data, path=gacha_info_path / "alias.json")
     logger.info("alias.json文件保存成功")
+    return True

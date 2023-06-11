@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Dict, List, Union
 
-from .config import config
+from .config import plugin_config
 from .deal_json import load_json_from_url
 
 path = Path.cwd() / "data" / "genshin_history"
@@ -16,9 +16,7 @@ async def get_info_from_url(
     :return: Union[dict, list[dict]]
     """
     cache_dir.mkdir(parents=True, exist_ok=True)
-    url = (
-        f"https://{config.gshisbanner_json_url}/{'character' if cha else 'weapon'}.json"
-    )
+    url = f"https://{plugin_config.gshisbanner_json_url}/{'character' if cha else 'weapon'}.json"
     cache_path = cache_dir / ("character.json" if cha else "weapon.json")
     return await load_json_from_url(url, path=cache_path)
 
