@@ -3,7 +3,7 @@ from nonebot.plugin import PluginMetadata
 from .config import plugin_config
 from .main import *  # noqa: F403
 
-__version__ = "0.5.5"
+__version__ = "0.6.0"
 __plugin_meta__ = PluginMetadata(
     name="gshisbanner",
     description="这是一个在机器人上获取原神历史卡池的插件",
