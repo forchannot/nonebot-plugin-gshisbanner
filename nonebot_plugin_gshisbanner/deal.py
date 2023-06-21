@@ -1,10 +1,13 @@
 from pathlib import Path
 from typing import Dict, List, Union
 
+from nonebot import get_driver
+
 from .config import plugin_config
 from .deal_json import load_json_from_url
 
 path = Path.cwd() / "data" / "genshin_history"
+command_start = get_driver().config.command_start
 
 
 async def get_info_from_url(
@@ -68,7 +71,12 @@ async def deal_info_from_version(
     # 获取所有卡池信息
     json = await get_info_from_url(True) + await get_info_from_url(False)
     # 卡池类型列表
-    type_list = ["five_character", "four_character", "five_weapon", "four_weapon"]
+    type_list = [
+        "five_character",
+        "four_character",
+        "five_weapon",
+        "four_weapon",
+    ]
     result = []
     for data in json:
         # 判断是否为指定版本
@@ -91,3 +99,11 @@ async def deal_info_from_version(
             result.append(temp)
     # 去除空值
     return [{k: v for k, v in data.items() if v} for data in result]
+
+
+def delete_command_start(text: str) -> str:
+    """
+    :param text: 原始文本
+    :return: 删除文本开头的指令符
+    """
+    return text[1:] if any(text.startswith(cs) for cs in command_start if cs) else text
