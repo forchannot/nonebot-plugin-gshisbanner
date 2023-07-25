@@ -51,7 +51,7 @@ async def _(
     event: Union[GroupMessageEvent, PrivateMessageEvent],
     key: str = Keyword(),  # noqa: B008
 ):
-    name, length = event.get_plaintext().split(key)
+    name, length = event.get_plaintext().split(key, 1)
     name = delete_command_start(name)
     if name in ["刷新", "更新"]:
         return
@@ -72,7 +72,7 @@ async def _(
     event: Union[GroupMessageEvent, PrivateMessageEvent],
     key: str = Keyword(),  # noqa: B008
 ):
-    version, upordown = event.get_plaintext().split(key)
+    version, upordown = event.get_plaintext().split(key, 1)
     version = delete_command_start(version)
     if version in ["刷新", "更新"]:
         return
@@ -92,9 +92,9 @@ async def _(
     event: Union[GroupMessageEvent, PrivateMessageEvent],
     key: str = Keyword(),  # noqa: B008
 ):
-    args = event.get_plaintext().split(key)
-    _arg = delete_command_start(args[0])
-    if _arg:
+    args = event.get_plaintext().split(key, 1)
+    if _arg := delete_command_start(args[0]):
+        # 去除掉命令开头如果仍然有内容则不处理
         return
     choose = args[1]
     if choose in ["历史卡池", "历史up", "卡池", "up"]:
