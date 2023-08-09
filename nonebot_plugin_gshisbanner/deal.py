@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Dict, List, Union
+from typing import Dict, List, Union, cast
 
 from nonebot import get_driver
 
@@ -69,16 +69,18 @@ async def deal_info_from_version(
     :return: 获取到的历史卡池数据
     """
     # 获取所有卡池信息
-    json = await get_info_from_url(True) + await get_info_from_url(False)  # type: ignore
+    gacha_data_cha: List[Dict] = cast(List[Dict], await get_info_from_url(True))
+    gacha_data_wep: List[Dict] = cast(List[Dict], await get_info_from_url(False))
+    gacha_data: List[Dict] = gacha_data_cha + gacha_data_wep
     # 卡池类型列表
-    type_list = [
+    type_list: List[str] = [
         "five_character",
         "four_character",
         "five_weapon",
         "four_weapon",
     ]
     result = []
-    for data in json:
+    for data in gacha_data:
         # 判断是否为指定版本
         if data["version"][:3] == version if is_all else data["version"] == version:
             # 构造卡池信息字典

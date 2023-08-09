@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Dict, List, Optional, Tuple, cast
 
 from .deal_json import load_json
 
@@ -12,7 +12,7 @@ def get_name_by_alias(target: str, target_type: str) -> Optional[str]:
     :param target_type: 类型
     :return: 真正的名字
     """
-    data = load_json(path)[target_type]  # type: ignore
+    data: Dict[str, List[str]] = cast(Dict, load_json(path))[target_type]
     return next((k for k, v in data.items() if target in v), None)
 
 
