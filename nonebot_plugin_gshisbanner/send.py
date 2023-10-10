@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Union
 
 from nomebot import require
+
 require("nonebot_plugin_saa")
 from nonebot_plugin_saa import (
     AggregatedMessageFactory,

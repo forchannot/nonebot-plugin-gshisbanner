@@ -2,6 +2,7 @@ from nonebot import logger, require
 from nonebot.params import Keyword
 from nonebot.permission import SUPERUSER
 from nonebot.plugin.on import on_keyword
+
 require("nonebot_plugin_saa")
 from nonebot_plugin_saa import SaaTarget
 

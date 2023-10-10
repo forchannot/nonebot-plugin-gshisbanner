@@ -1,5 +1,6 @@
-from nonebot.plugin import PluginMetadata
 from nomebot import require
+from nonebot.plugin import PluginMetadata
+
 require("nonebot_plugin_saa")
 from nonebot_plugin_saa import enable_auto_select_bot
 
