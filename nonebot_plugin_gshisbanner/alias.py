@@ -1,9 +1,7 @@
-from pathlib import Path
 from typing import Dict, List, Optional, Tuple, cast
 
+from .constant import alias_path
 from .deal_json import load_json
-
-path = Path.cwd() / "data" / "genshin_history" / "alias.json"
 
 
 def get_name_by_alias(target: str, target_type: str) -> Optional[str]:
@@ -12,7 +10,7 @@ def get_name_by_alias(target: str, target_type: str) -> Optional[str]:
     :param target_type: 类型
     :return: 真正的名字
     """
-    data: Dict[str, List[str]] = cast(Dict, load_json(path))[target_type]
+    data: Dict[str, List[str]] = cast(Dict, load_json(alias_path))[target_type]
     return next((k for k, v in data.items() if target in v), None)
 
 

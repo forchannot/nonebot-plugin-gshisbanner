@@ -1,17 +1,13 @@
 from pathlib import Path
 from typing import Dict, List, Union, cast
 
-from nonebot import get_driver
-
 from .config import plugin_config
+from .constant import command_start, history_path
 from .deal_json import load_json_from_url
-
-path = Path.cwd() / "data" / "genshin_history"
-command_start = get_driver().config.command_start
 
 
 async def get_info_from_url(
-    cha: bool, cache_dir: Path = path
+    cha: bool, cache_dir: Path = history_path
 ) -> Union[Dict, List[Dict]]:
     """
     :param cha: 类型
