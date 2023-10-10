@@ -1,7 +1,11 @@
 from nonebot.plugin import PluginMetadata
+from nonebot_plugin_saa import enable_auto_select_bot
 
+from .adapters import *  # noqa: F401, F403
 from .config import Config
-from .main import *  # noqa: F403
+from .start import init_group_card as init_group_card
+
+enable_auto_select_bot()
 
 __version__ = "0.6.1"
 __plugin_meta__ = PluginMetadata(
@@ -11,7 +15,7 @@ __plugin_meta__ = PluginMetadata(
     type="application",
     homepage="https://github.com/forchannot/nonebot-plugin-gshisbanner",
     config=Config,
-    supported_adapters={"~onebot.v11"},
+    supported_adapters={"~onebot.v11", "~red"},
     extra={
         "author": "forchannot",
         "version": __version__,
