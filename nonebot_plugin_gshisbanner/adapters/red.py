@@ -12,25 +12,26 @@ from ..deal_json import load_json_from_url, save_json
 from ..send import word_send_from_name, word_send_from_version
 from ..start import init_group_card
 
+old_gacha = on_keyword(
+    {"历史卡池", "历史up"},
+    priority=45,
+    block=True,
+)
+version_gacha = on_keyword(
+    {"卡池", "up"},
+    priority=47,
+    block=False,
+)
+refresh = on_keyword(
+    {"刷新", "更新"},
+    permission=SUPERUSER,
+    priority=40,
+    block=True,
+)
+
+
 try:
     from nonebot.adapters.red.event import MessageEvent as RedMessageEvent
-
-    old_gacha = on_keyword(
-        {"历史卡池", "历史up"},
-        priority=45,
-        block=True,
-    )
-    version_gacha = on_keyword(
-        {"卡池", "up"},
-        priority=47,
-        block=False,
-    )
-    refresh = on_keyword(
-        {"刷新", "更新"},
-        permission=SUPERUSER,
-        priority=40,
-        block=True,
-    )
 
     @old_gacha.handle()
     async def _(
