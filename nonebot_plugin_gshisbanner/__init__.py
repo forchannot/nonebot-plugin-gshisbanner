@@ -1,4 +1,7 @@
+from nomebot import require
 from nonebot.plugin import PluginMetadata
+
+require("nonebot_plugin_saa")
 from nonebot_plugin_saa import enable_auto_select_bot
 
 from .adapters import *  # noqa: F401, F403
