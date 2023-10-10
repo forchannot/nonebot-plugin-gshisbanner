@@ -85,15 +85,15 @@ gshisbanner_json_url: str
 <summary>历史卡池效果图</summary>
 <details>
 <summary>图1</summary>
-<img src="https://cdn.staticaly.com/gh/forchannot/mypicgo@main/20230324/image.4jlu5w0mhko0.jpg" alt="help">
+<img src="https://jsd.cdn.zzko.cn/gh/forchannot/mypicgo@main/20230324/image.4jlu5w0mhko0.jpg" alt="help">
 </details>
 <details>
 <summary>图2</summary>
-<img src="https://cdn.staticaly.com/gh/forchannot/mypicgo@main/20230324/image.5v8oqbhsm080.jpg" alt="help">
+<img src="https://jsd.cdn.zzko.cn/gh/forchannot/mypicgo@main/20230324/image.5v8oqbhsm080.jpg" alt="help">
 </details>
 <details>
 <summary>图3</summary>
-<img src="https://cdn.staticaly.com/gh/forchannot/mypicgo@main/20230324/image.mr1g032ci74.jpg" alt="help">
+<img src="https://jsd.cdn.zzko.cn/gh/forchannot/mypicgo@main/20230324/image.mr1g032ci74.jpg" alt="help">
 </details>
 </details>
 
@@ -101,21 +101,21 @@ gshisbanner_json_url: str
 <summary>版本卡池效果图</summary>
 <details>
 <summary>图1</summary>
-<img src="https://cdn.staticaly.com/gh/forchannot/mypicgo@main/20230324/image.16h2b0rhhlcw.jpg" alt="help">
+<img src="https://jsd.cdn.zzko.cn/gh/forchannot/mypicgo@main/20230324/image.16h2b0rhhlcw.jpg" alt="help">
 </details>
 <details>
 <summary>图2</summary>
-<img src="https://cdn.staticaly.com/gh/forchannot/mypicgo@main/20230324/image.50oudvw9cdg0.jpg" alt="help">
+<img src="https://jsd.cdn.zzko.cn/gh/forchannot/mypicgo@main/20230324/image.50oudvw9cdg0.jpg" alt="help">
 </details>
 <details>
 <summary>图3</summary>
-<img src="https://cdn.staticaly.com/gh/forchannot/mypicgo@main/20230324/image.63vftfc9ryk0.jpg" alt="help">
+<img src="https://jsd.cdn.zzko.cn/gh/forchannot/mypicgo@main/20230324/image.63vftfc9ryk0.jpg" alt="help">
 </details>
 </details>
 
 <details>
 <summary>刷新卡池/别名效果图</summary>
-<img src="https://cdn.staticaly.com/gh/forchannot/mypicgo@main/20230324/image.5zl59kpx8b00.jpg" alt="help">
+<img src="https://jsd.cdn.zzko.cn/gh/forchannot/mypicgo@main/20230324/image.5zl59kpx8b00.jpg" alt="help">
 </details>
 
 
