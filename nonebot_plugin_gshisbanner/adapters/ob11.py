@@ -1,5 +1,4 @@
 from nonebot import logger, require
-from nonebot.adapters.onebot.v11 import GROUP_ADMIN, GROUP_OWNER
 from nonebot.params import Keyword
 from nonebot.permission import SUPERUSER
 from nonebot.plugin.on import on_keyword
@@ -27,7 +26,7 @@ version_gacha = on_keyword(
 )
 refresh = on_keyword(
     {"刷新", "更新"},
-    permission=SUPERUSER | GROUP_ADMIN | GROUP_OWNER,
+    permission=SUPERUSER,
     priority=40,
     block=True,
 )
