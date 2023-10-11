@@ -105,5 +105,5 @@ try:
                 await refresh.finish(f"刷新{choose}失败,可能是网络问题或api失效")
         await refresh.finish(f"刷新{choose}成功")
 
-except ImportError:
+except (ImportError, ModuleNotFoundError):
     logger.warning("nonebot_adapter_onebot未安装,跳过ob11适配器")

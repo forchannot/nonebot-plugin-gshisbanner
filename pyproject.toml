@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot-plugin-gshisbanner"
-version = "1.0.4"
+version = "1.0.5"
 description = "Nonebot2查询原神历史卡池小插件"
 authors = ["forchannot <yy320206@gmail.com>"]
 license = "MIT"
