@@ -8,7 +8,7 @@ async def get(
     headers: Optional[Dict[str, str]] = None,
     params: Optional[Dict[str, Any]] = None,
     timeout: Optional[int] = 30,
-    **kwargs
+    **kwargs,
 ) -> httpx.Response:
     async with httpx.AsyncClient(follow_redirects=True) as client:
         return await client.get(

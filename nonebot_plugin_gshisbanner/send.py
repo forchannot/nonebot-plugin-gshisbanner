@@ -20,7 +20,11 @@ async def word_send_from_name(
 ):
     end_time = datetime.strptime(info[0]["end"], "%Y-%m-%d %H:%M:%S").date()
     end_t = (datetime.now().date() - end_time).days
-    delta_time = f"最近一次up距离现在已有{end_t}天" if end_t > 0 else f"当前正在up中,距离结束还有约{-end_t}天"
+    delta_time = (
+        f"最近一次up距离现在已有{end_t}天"
+        if end_t > 0
+        else f"当前正在up中,距离结束还有约{-end_t}天"
+    )
     msg_content = f"{real_name}{delta_time}"
     for i in range(0, len(info), length):
         msg = msg_content if i == 0 else []
