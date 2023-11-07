@@ -1,0 +1,33 @@
+name: Update Alias
+
+on:
+  workflow_dispatch:
+
+jobs:
+  UpdateGenshinData:
+    name: Update Alias
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@master
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+
+    - name: Install Package
+      run: pip install requests
+
+    - name: Run Update Script
+      run: python update_alias.py
+
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9
+      with:
+        author_name: github-actions[bot]
+        author_email: github-actions[bot]@users.noreply.github.com
+        message: ':wrench: 自动更新别名'
+        add: |
+          '**.json'
