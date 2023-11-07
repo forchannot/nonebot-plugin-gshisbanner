@@ -19,12 +19,19 @@ async def word_send_from_name(
     send_target: PlatformTarget, real_name: str, info, length
 ):
     end_time = datetime.strptime(info[0]["end"], "%Y-%m-%d %H:%M:%S").date()
+    start_time = datetime.strptime(info[0]["start"], "%Y-%m-%d %H:%M:%S").date()
     end_t = (datetime.now().date() - end_time).days
-    delta_time = (
-        f"最近一次up距离现在已有{end_t}天"
-        if end_t > 0
-        else f"当前正在up中,距离结束还有约{-end_t}天"
-    )
+    start_t = (datetime.now().date() - start_time).days
+    if end_t > 0:
+        delta_time = f"最近一次up距离现在已有{end_t}天"
+    elif start_t < 0:
+        delta_time = f"还未开始up,距离开始还有约{-start_t}天"
+    else:
+        delta_time = (
+            "当前还剩最后一天up了"
+            if end_t == 0
+            else f"当前正在up中,距离结束还有约{-end_t}天"
+        )
     msg_content = f"{real_name}{delta_time}"
     for i in range(0, len(info), length):
         msg = msg_content if i == 0 else []
