@@ -13,6 +13,7 @@ async def init_group_card(force_refresh: bool = False) -> bool:
     if not gacha_info_path.exists():
         gacha_info_path.mkdir(parents=True)
     urls = [
+        "jsd.zhenxun.buzz",  # 作者自己的转发，不保证稳定性
         "cdn.jsdelivr.net",
         "jsd.cdn.zzko.cn",
         "fastly.jsdelivr.net",
