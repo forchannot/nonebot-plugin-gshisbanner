@@ -25,8 +25,8 @@ for alias_type, url in urls.items():
             key = key.strip()
             value = value.strip().strip(",").strip("'")
             result_dict[alias_type][key] = value.split(",")
+        for k, v in result_dict[alias_type].items():
+            v.insert(0, k)
 
-        with open(
-            Path("./data/genshin_history/alias.json"), "w", encoding="utf-8"
-        ) as f:
-            json.dump(result_dict, f, indent=2, ensure_ascii=False)
+with open(Path("./data/genshin_history/alias.json"), "w", encoding="utf-8") as f:
+    json.dump(result_dict, f, indent=2, ensure_ascii=False)
