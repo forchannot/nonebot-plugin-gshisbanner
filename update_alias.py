@@ -26,5 +26,7 @@ for alias_type, url in urls.items():
             value = value.strip().strip(",").strip("'")
             result_dict[alias_type][key] = value.split(",")
 
-        with open(Path("./data/alias.json"), "w", encoding="utf-8") as f:
+        with open(
+            Path("./data/genshin_history/alias.json"), "w", encoding="utf-8"
+        ) as f:
             json.dump(result_dict, f, indent=2, ensure_ascii=False)
