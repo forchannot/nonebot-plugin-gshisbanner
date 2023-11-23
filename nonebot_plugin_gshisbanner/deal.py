@@ -1,18 +1,17 @@
 from pathlib import Path
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Union
 
 from .config import plugin_config
 from .constant import command_start, history_path
 from .deal_json import load_json_from_url
+from .model import GsGacha
 
 
-async def get_info_from_url(
-    cha: bool, cache_dir: Path = history_path
-) -> Union[Dict, List[Dict]]:
+async def get_info_from_url(cha: bool, cache_dir: Path = history_path) -> List[Dict]:
     """
     :param cha: 类型
     :param cache_dir: 本地缓存
-    :return: Union[dict, list[dict]]
+    :return: list[dict]
     """
     cache_dir.mkdir(parents=True, exist_ok=True)
     url = f"https://{plugin_config.gshisbanner_json_url}/{'character' if cha else 'weapon'}.json"
@@ -29,30 +28,31 @@ async def deal_info_from_name(
     :return: 获取到的历史卡池数据
     """
     result = []
-    jsons = await get_info_from_url(choose == "cha")
-    for data in jsons:
-        for item in data["items"]:
-            if item["name"] == name:
-                temp = {
-                    "start": data["start"],
-                    "end": data["end"],
-                    "version": data["version"],
-                }
-                if choose == "cha":
-                    temp["five_character"] = [
-                        x["name"] for x in data["items"] if x.get("rankType") == 5
-                    ]
-                    temp["four_character"] = [
-                        x["name"] for x in data["items"] if x.get("rankType") == 4
-                    ]
-                else:
-                    temp["five_weapon"] = [
-                        x["name"] for x in data["items"] if x.get("rankType") == 5
-                    ]
-                    temp["four_weapon"] = [
-                        x["name"] for x in data["items"] if x.get("rankType") == 4
-                    ]
-                result.append(temp)
+    all_data = await get_info_from_url(choose == "cha")
+    obj_datas = [GsGacha.parse_obj(data) for data in all_data]
+    for obj_data in obj_datas:
+        obj_data_items = obj_data.items
+        if any(x.name == name for x in obj_data_items):
+            temp: Dict[str, Union[str, List[str]]] = {
+                "start": obj_data.start,
+                "end": obj_data.end,
+                "version": obj_data.version,
+            }
+            if choose == "cha":
+                temp["five_character"] = [
+                    x.name for x in obj_data_items if x.rankType == 5
+                ]
+                temp["four_character"] = [
+                    x.name for x in obj_data_items if x.rankType == 4
+                ]
+            else:
+                temp["five_weapon"] = [
+                    x.name for x in obj_data_items if x.rankType == 5
+                ]
+                temp["four_weapon"] = [
+                    x.name for x in obj_data_items if x.rankType == 4
+                ]
+            result.append(temp)
     return result
 
 
@@ -65,9 +65,9 @@ async def deal_info_from_version(
     :return: 获取到的历史卡池数据
     """
     # 获取所有卡池信息
-    gacha_data_cha: List[Dict] = cast(List[Dict], await get_info_from_url(True))
-    gacha_data_wep: List[Dict] = cast(List[Dict], await get_info_from_url(False))
-    gacha_data: List[Dict] = gacha_data_cha + gacha_data_wep
+    gacha_data_cha: List[Dict] = await get_info_from_url(True)
+    gacha_data_wep: List[Dict] = await get_info_from_url(False)
+    gacha_data_all: List[Dict] = gacha_data_cha + gacha_data_wep
     # 卡池类型列表
     type_list: List[str] = [
         "five_character",
@@ -76,26 +76,26 @@ async def deal_info_from_version(
         "four_weapon",
     ]
     result = []
-    for data in gacha_data:
+    obj_datas = [GsGacha.parse_obj(data) for data in gacha_data_all]
+    for obj_data in obj_datas:
+        obj_data_items = obj_data.items
         # 判断是否为指定版本
-        if data["version"][:3] == version if is_all else data["version"] == version:
+        if obj_data.version[:3] == version if is_all else obj_data.version == version:
             # 构造卡池信息字典
-            temp = {
-                "start": data["start"],
-                "end": data["end"],
-                "version": data["version"],
+            temp: Dict[str, Union[str, List[str]]] = {
+                "start": obj_data.start,
+                "end": obj_data.end,
+                "version": obj_data.version,
             }
             # 遍历卡池类型列表
-            for item in type_list:
-                # 获取对应类型的卡池信息
-                temp[item] = [
-                    x["name"]
-                    for x in data["items"]
-                    if x.get("rankType") == (5 if "five" in item else 4)
-                    and x.get("itemType") == item.split("_")[1].capitalize()
+            for type in type_list:
+                temp[type] = [
+                    x.name
+                    for x in obj_data_items
+                    if x.rankType == (5 if "five" in type else 4)
+                    and x.itemType == type.split("_")[1].capitalize()
                 ]
             result.append(temp)
-    # 去除空值
     return [{k: v for k, v in data.items() if v} for data in result]
 
 
