@@ -54,6 +54,8 @@ try:
         info = await deal_info_from_name(
             real_name, "cha" if real_type == "角色" else "wep"
         )
+        if not info:
+            await old_gacha.finish("获取历史卡池信息失败，请联系超管")
         if (
             length := int(length)
             if length
@@ -79,6 +81,8 @@ try:
             return
         real_version = f"{version}.{upordown}" if upordown else version
         if info := await deal_info_from_version(real_version, not upordown):
+            if not info:
+                await version_gacha.finish("获取历史卡池信息失败，请联系超管")
             await word_send_from_version(target, real_version, info)
 
     @refresh.handle()

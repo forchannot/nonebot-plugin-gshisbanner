@@ -29,6 +29,8 @@ async def deal_info_from_name(
     """
     result = []
     all_data = await get_info_from_url(choose == "cha")
+    if not all_data:
+        return result
     obj_datas = [GsGacha.parse_obj(data) for data in all_data]
     for obj_data in obj_datas:
         obj_data_items = obj_data.items
@@ -68,6 +70,8 @@ async def deal_info_from_version(
     gacha_data_cha: List[Dict] = await get_info_from_url(True)
     gacha_data_wep: List[Dict] = await get_info_from_url(False)
     gacha_data_all: List[Dict] = gacha_data_cha + gacha_data_wep
+    if not gacha_data_all:
+        return []
     # 卡池类型列表
     type_list: List[str] = [
         "five_character",
