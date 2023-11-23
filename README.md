@@ -64,13 +64,13 @@ gshisbanner_json_url: str
      #vercel代理，国内可能无法直连
 ·· 3."genshin-gacha-banners.52v6.com/data" 
      #cloudfare代理，可能会被墙
-·· 4."ghproxy.com/https://raw.githubusercontent.com/KeyPJ/FetchData/main/data/gacha" 
+·· 4."mirror.ghproxy.com/https://raw.githubusercontent.com/KeyPJ/FetchData/main/data/gacha" 
      ##ghproxy代理的raw文件，大多数情况可用，不过不稳定
      ##前面的"ghproxy.com/"可以不写(如果你是国外机),或者换成你自建的github加速服务均可(需要支持https)
 ·· 5."jsd.cdn.zzko.cn/gh/KeyPJ/FetchData@main/data/gacha"
      ##jsdelivr代理的文件，大多数情况可用，推荐
 ```
-**由于仓库原作者暂没更新，有需要的可以将上述4和5中的`KeyPJ`更改为`forchannot`，或者自己尝试复制json文件到数据目录**
+**也可以将上述4和5中的`KeyPJ`更改为`forchannot`，或者自己尝试复制json文件到数据目录`{bot_dir}/data/genshin_history`**
 
 ## 🎉 使用
 ### 指令表
