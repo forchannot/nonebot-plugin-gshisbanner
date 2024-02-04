@@ -10,7 +10,7 @@ from .start import init_group_card  # noqa: F401
 
 enable_auto_select_bot()
 
-__version__ = "1.2.1"
+__version__ = "1.2.2"
 __plugin_meta__ = PluginMetadata(
     name="gshisbanner",
     description="这是一个在机器人上获取原神历史卡池的插件",
