@@ -91,11 +91,10 @@ try:
         key: str = Keyword(),  # noqa: B008
     ):
         args = event.get_plaintext().split(key, 1)
-        if _arg := delete_command_start(args[0]):
+        if delete_command_start(args[0]):
             # 去除掉命令开头如果仍然有内容则不处理
             return
-        choose = args[1]
-        if choose in ["历史卡池", "历史up", "卡池", "up"]:
+        if choose := args[1] in ["历史卡池", "历史up", "卡池", "up"]:
             for i in ["character", "weapon"]:
                 url = f"https://{plugin_config.gshisbanner_json_url}/{i}.json"
                 path = gacha_info_path / f"{i}.json"
@@ -105,10 +104,10 @@ try:
                     continue
                 save_json(result, path)
                 logger.info(f"{i}.json文件保存成功")
+                await refresh.finish(f"刷新{choose}成功")
         elif choose == "别名":
             if (await init_group_card(True)) is False:
                 await refresh.finish(f"刷新{choose}失败,可能是网络问题或api失效")
-        await refresh.finish(f"刷新{choose}成功")
 
 except (ImportError, ModuleNotFoundError):
     logger.warning("nonebot_adapter_red未安装,跳过red适配器")

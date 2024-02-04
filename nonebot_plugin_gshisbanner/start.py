@@ -25,9 +25,9 @@ async def init_group_card(force_refresh: bool = False) -> bool:
         logger.info("alias.json文件已存在，跳过下载，如需更新请使用刷新别名功能")
         return False
     for url in urls:
-        url = f"https://{url}/{url_base}"
+        fin_url = f"https://{url}/{url_base}"
         with contextlib.suppress(Exception):
-            resp = await get(url, follow_redirects=True)
+            resp = await get(url=fin_url, follow_redirects=True)
             if resp.status_code == 200:
                 break
     else:

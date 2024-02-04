@@ -6,7 +6,7 @@ from nonebot_plugin_saa import enable_auto_select_bot
 
 from .adapters import *  # noqa: F401, F403
 from .config import Config
-from .start import init_group_card as init_group_card
+from .start import init_group_card  # noqa: F401
 
 enable_auto_select_bot()
 

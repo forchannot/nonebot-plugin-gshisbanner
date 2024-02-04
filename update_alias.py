@@ -18,10 +18,10 @@ for alias_type, url in urls.items():
         js_text = match.group(1)
         lines = js_text.split("\n")
         for line in lines:
-            line = line.strip()
-            if line.startswith("/") or not line:
+            line_ = line.strip()
+            if line_.startswith("/") or not line_:
                 continue
-            key, value = line.split(":")
+            key, value = line_.split(":")
             key = key.strip()
             value = value.strip().strip(",").strip("'")
             result_dict[alias_type][key] = value.split(",")
