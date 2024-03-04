@@ -1,10 +1,10 @@
 from pathlib import Path
 from typing import Dict, List, Union
 
-from .config import plugin_config
-from .constant import command_start, history_path
-from .deal_json import load_json_from_url
 from .model import GsGacha
+from .config import plugin_config
+from .deal_json import load_json_from_url
+from .constant import history_path, command_start
 
 
 async def get_info_from_url(cha: bool, cache_dir: Path = history_path) -> List[Dict]:
@@ -14,7 +14,8 @@ async def get_info_from_url(cha: bool, cache_dir: Path = history_path) -> List[D
     :return: list[dict]
     """
     cache_dir.mkdir(parents=True, exist_ok=True)
-    url = f"https://{plugin_config.gshisbanner_json_url}/{'character' if cha else 'weapon'}.json"
+    json_name = "character" if cha else "weapon"
+    url = f"https://{plugin_config.gshisbanner_json_url}/{json_name}.json"
     cache_path = cache_dir / ("character.json" if cha else "weapon.json")
     return await load_json_from_url(url, path=cache_path)
 

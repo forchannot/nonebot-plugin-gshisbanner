@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Tuple, cast
+from typing import Dict, List, Tuple, Optional, cast
 
 from .constant import alias_path
 from .deal_json import load_json

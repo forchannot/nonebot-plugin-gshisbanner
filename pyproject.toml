@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot-plugin-gshisbanner"
-version = "1.2.2"
+version = "1.2.3"
 description = "Nonebot2查询原神历史卡池小插件"
 authors = ["forchannot <yy320206@gmail.com>"]
 license = "MIT"
@@ -10,7 +10,7 @@ packages = [{include = "nonebot_plugin_gshisbanner"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-nonebot2 = ">=2.1.0"
+nonebot2 = "^2.1.0"
 httpx = ">=0.20.0, <1.0.0"
 nonebot-plugin-send-anything-anywhere = ">=0.3.1"
 pydantic = "^1.10.0"
@@ -19,14 +19,22 @@ pydantic = "^1.10.0"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-
 [tool.ruff]
-select = ["E", "F", "B", "I", "PL"]
-ignore = ["E501", "E402", "PLR2004"]
 line-length = 88
-unfixable = ["B"]
+target-version = "py38"
 
+[tool.ruff.lint]
+select = ["E", "W", "F", "UP", "C", "T", "PYI", "PT", "Q"]
+ignore = ["E402", "C901", "UP037"]
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
 
 [tool.isort]
 profile = "black"
+line_length = 88
+length_sort = true
+skip_gitignore = true
+force_sort_within_sections = true
 

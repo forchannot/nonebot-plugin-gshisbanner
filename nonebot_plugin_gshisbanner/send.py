@@ -1,14 +1,14 @@
-from datetime import datetime
 from typing import Union
+from datetime import datetime
 
 from nonebot import require
 
 require("nonebot_plugin_saa")
 from nonebot_plugin_saa import (
-    AggregatedMessageFactory,
+    Text,
     MessageFactory,
     PlatformTarget,
-    Text,
+    AggregatedMessageFactory,
 )
 
 Sendable = Union[MessageFactory, AggregatedMessageFactory]

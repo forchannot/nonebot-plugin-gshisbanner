@@ -4,13 +4,15 @@ from nonebot.plugin import PluginMetadata
 require("nonebot_plugin_saa")
 from nonebot_plugin_saa import enable_auto_select_bot
 
-from .adapters import *  # noqa: F401, F403
 from .config import Config
+from .constant import DRIVER
+from .adapters import *  # noqa: F401, F403
 from .start import init_group_card  # noqa: F401
 
 enable_auto_select_bot()
+DRIVER.on_startup(init_group_card)
 
-__version__ = "1.2.2"
+__version__ = "1.2.3"
 __plugin_meta__ = PluginMetadata(
     name="gshisbanner",
     description="这是一个在机器人上获取原神历史卡池的插件",

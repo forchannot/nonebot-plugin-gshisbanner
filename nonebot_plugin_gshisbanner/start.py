@@ -4,11 +4,10 @@ from typing import Dict
 from nonebot import logger
 
 from .api import get
-from .constant import DRIVER, gacha_info_path
 from .deal_json import save_json
+from .constant import gacha_info_path
 
 
-@DRIVER.on_startup
 async def init_group_card(force_refresh: bool = False) -> bool:
     if not gacha_info_path.exists():
         gacha_info_path.mkdir(parents=True)
