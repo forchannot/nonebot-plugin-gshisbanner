@@ -94,7 +94,7 @@ try:
         if delete_command_start(args[0]):
             # 去除掉命令开头如果仍然有内容则不处理
             return
-        if choose := args[1] in ["历史卡池", "历史up", "卡池", "up"]:
+        if (choose := args[1]) in ["历史卡池", "历史up", "卡池", "up"]:
             for i in ["character", "weapon"]:
                 url = f"https://{plugin_config.gshisbanner_json_url}/{i}.json"
                 path = gacha_info_path / f"{i}.json"
