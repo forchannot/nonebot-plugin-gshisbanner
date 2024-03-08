@@ -104,10 +104,12 @@ try:
                     continue
                 save_json(result, path)
                 logger.info(f"{i}.json文件保存成功")
-                await refresh.finish(f"刷新{choose}成功")
         elif choose == "别名":
             if (await init_group_card(True)) is False:
                 await refresh.finish(f"刷新{choose}失败,可能是网络问题或api失效")
+        else:
+            await refresh.finish()
+        await refresh.finish(f"刷新{choose}成功")
 
 except (ImportError, ModuleNotFoundError):
     logger.warning("nonebot_adapter_red未安装,跳过red适配器")
