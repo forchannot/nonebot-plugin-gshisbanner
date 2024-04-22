@@ -79,7 +79,7 @@ pic: 使用图片发送
 
 pic_font_path: str
 # 图片发送所需要的字体
-# windows上无需配置，有默认的msyh字体，linux需自行配置
+# 默认配置了MiSans字体，不满意可以自己更改
 ```
 **也可以自己尝试复制json文件到数据目录`{bot_dir}/data/genshin_history`**
 
