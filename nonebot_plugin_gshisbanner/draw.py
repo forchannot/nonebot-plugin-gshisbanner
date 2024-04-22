@@ -81,7 +81,7 @@ class GameGachaBanner:
         for row_idx, row_data in enumerate(self.gacha_data, start=1):
             for col_idx, cell_text in enumerate(
                 [
-                    row_data.version,
+                    "{}.{}  卡池{}".format(*row_data.version.split(".")),
                     "、".join(row_data.five_star),
                     "、".join(row_data.four_star),
                     row_data.start.strftime("%Y-%m-%d %H:%M:%S"),

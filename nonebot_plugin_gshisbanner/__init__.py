@@ -12,7 +12,7 @@ from .start import init_group_card  # noqa: F401
 enable_auto_select_bot()
 DRIVER.on_startup(init_group_card)
 
-__version__ = "1.3.1"
+__version__ = "1.3.2"
 __plugin_meta__ = PluginMetadata(
     name="gshisbanner",
     description="这是一个在机器人上获取原神历史卡池的插件",
