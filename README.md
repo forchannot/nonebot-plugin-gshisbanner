@@ -54,7 +54,8 @@ gshisbanner_forward_length: int
 # 仅为角色/武器卡池转发内容长度，不包括版本卡池
 # 越大单次转发内容更多，合并转发的次数更少，越小单单次转发内容更少，但合并转发的次数更多
 # 不要设置为>99或者<0的数字或者任意字符串
-
+```
+```
 gshisbanner_json_url: str
 # 历史卡池json列表下载位置
 # 可选值
@@ -70,7 +71,17 @@ gshisbanner_json_url: str
 ·· 5."jsd.cdn.zzko.cn/gh/KeyPJ/FetchData@main/data/gacha"
      ##jsdelivr代理的文件，大多数情况可用，推荐
 ```
-**也可以将上述4和5中的`KeyPJ`更改为`forchannot`，或者自己尝试复制json文件到数据目录`{bot_dir}/data/genshin_history`**
+```
+send_type: Literal["forward", "pic"]
+# 结果发送方式
+forward: 使用合并转发的方式发送
+pic: 使用图片发送
+
+pic_font_path: str
+# 图片发送所需要的字体
+# windows上无需配置，有默认的msyh字体，linux需自行配置
+```
+**也可以自己尝试复制json文件到数据目录`{bot_dir}/data/genshin_history`**
 
 ## 🎉 使用
 ### 指令表
@@ -121,4 +132,4 @@ gshisbanner_json_url: str
 
 ### 鸣谢
 
-[genshin-gacha-banners](https://github.com/KeyPJ/genshin-gacha-banners) #历史up卡池来源
+[FetchData](https://github.com/KeyPJ/FetchData) #历史up卡池来源，感谢

@@ -4,14 +4,16 @@ from nonebot.permission import SUPERUSER
 from nonebot.plugin.on import on_keyword
 
 require("nonebot_plugin_saa")
-from nonebot_plugin_saa import SaaTarget
+from nonebot_plugin_saa import Image, SaaTarget
 
 from ..alias import find_name
 from ..config import plugin_config
+from ..draw import GameGachaBanner
 from ..start import init_group_card
+from ..model import GachaDraw as GachaDrawModel
 from ..deal_json import save_json, load_json_from_url
 from ..constant import gacha_info_path, special_version
-from ..send import word_send_from_name, word_send_from_version
+from ..send import send_pic, word_send_from_name, word_send_from_version
 from ..deal import deal_info_from_name, delete_command_start, deal_info_from_version
 
 old_gacha = on_keyword(
@@ -56,12 +58,17 @@ try:
         )
         if not info:
             await old_gacha.finish("获取历史卡池信息失败，请联系超管")
-        if (
-            length := int(length)
-            if length
-            else plugin_config.gshisbanner_forward_length
-        ):
-            await word_send_from_name(target, real_name, info, length)
+        if plugin_config.send_type == "forward":
+            await word_send_from_name(
+                target,
+                real_name,
+                info,
+                int(length) if length else plugin_config.gshisbanner_forward_length,
+            )
+        else:
+            info = [GachaDrawModel.parse_obj(i) for i in info[::-1]]
+            img = GameGachaBanner(info, real_name, real_type).generate_table()
+            await send_pic(target, Image(img))
 
     @version_gacha.handle()
     async def _(
@@ -83,7 +90,12 @@ try:
         if info := await deal_info_from_version(real_version, not upordown):
             if not info:
                 await version_gacha.finish("获取历史卡池信息失败，请联系超管")
-            await word_send_from_version(target, real_version, info)
+            if plugin_config.send_type == "forward":
+                await word_send_from_version(target, real_version, info)
+            else:
+                info = [GachaDrawModel.parse_obj(i) for i in info]
+                img = GameGachaBanner(info, real_version, "").generate_table()
+                await send_pic(target, Image(img))
 
     @refresh.handle()
     async def _(

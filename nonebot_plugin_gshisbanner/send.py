@@ -6,6 +6,7 @@ from nonebot import require
 require("nonebot_plugin_saa")
 from nonebot_plugin_saa import (
     Text,
+    Image,
     MessageFactory,
     PlatformTarget,
     AggregatedMessageFactory,
@@ -64,3 +65,7 @@ async def send_banner_info(send_target: PlatformTarget, msg_content, banner_info
         )
     forward_msg = AggregatedMessageFactory(list(msgs))
     await send_forward_msg(send_target, forward_msg)
+
+
+async def send_pic(send_target: PlatformTarget, pic: Image):
+    await pic.send_to(send_target)
