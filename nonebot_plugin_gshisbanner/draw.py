@@ -23,14 +23,14 @@ class GameGachaBanner:
         self.gacha_type = gacha_type
         self.col_widths = [
             len(f"{gacha_name}历史卡池") * 20,
-            max([sum(len(x) for x in i.five_star) * 23 for i in gacha_data]),
-            max([sum(len(x) for x in i.four_star) * 23 for i in gacha_data]),
+            max([sum(len(x) for x in i.five_star) * 25 for i in gacha_data]),
+            max([sum(len(x) for x in i.four_star) * 25 for i in gacha_data]),
             len(gacha_data[0].start.strftime("%Y-%m-%d %H:%M:%S")) * 12,
             len(gacha_data[0].end.strftime("%Y-%m-%d %H:%M:%S")) * 12,
         ]
         self.img_width = int(sum(self.col_widths))
         self.line_color = (0, 0, 0)
-        self.line_width = 2
+        self.line_width = 3
         self.gacha_data = gacha_data
 
     def _header(self, gacha_name, gacha_type) -> List[str]:
