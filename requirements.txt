@@ -1,5 +1,5 @@
 anyio==4.3.0 ; python_version >= "3.8" and python_version < "4.0"
-certifi==2024.2.2 ; python_version >= "3.8" and python_version < "4.0"
+certifi==2024.7.4 ; python_version >= "3.8" and python_version < "4.0"
 colorama==0.4.6 ; python_version >= "3.8" and python_version < "4.0" and sys_platform == "win32"
 exceptiongroup==1.2.1 ; python_version >= "3.8" and python_version < "3.11"
 filetype==1.2.0 ; python_version >= "3.8" and python_version < "4.0"
