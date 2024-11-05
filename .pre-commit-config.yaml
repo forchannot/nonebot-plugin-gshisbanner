@@ -9,7 +9,7 @@ ci:
 repos:
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.3
+    rev: v0.7.2
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix, --preview, --unsafe-fixes]
@@ -33,4 +33,4 @@ repos:
       - id: poetry-export
         args: ["-f", "requirements.txt", "--without-hashes", "-o", "requirements.txt"]
         verbose: true
-        stages: [commit]
+        stages: [pre-commit]
